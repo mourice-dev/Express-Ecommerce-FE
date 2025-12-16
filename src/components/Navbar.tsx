@@ -19,7 +19,9 @@ const Navbar = () => {
         });
         if (response.ok) {
           const data = await response.json();
-          setUsername(data.username || data.name);
+          if (data && (data.username || data.name)) {
+            setUsername(data.username || data.name);
+          }
         }
       } catch (error) {
         console.log("Failed to fetch user");
@@ -33,7 +35,7 @@ const Navbar = () => {
         });
         if (response.ok) {
           const data = await response.json();
-          setCartCount(data.count);
+          setCartCount(data.count || 0);
         }
       } catch (error) {
         console.error("Failed to fetch cart count:", error);

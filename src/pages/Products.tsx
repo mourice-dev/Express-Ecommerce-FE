@@ -43,14 +43,19 @@ const Products = () => {
         });
         if (response.ok) {
           const data = await response.json();
-          // Map data to include mock UI fields if missing
-          const enhancedData = data.map((p: any) => ({
-            ...p,
-            rating: p.rating || 4 + Math.random(),
-            category: p.category || "General",
-            tag: p.tag || (Math.random() > 0.7 ? "New" : null),
-          }));
-          setProducts(enhancedData);
+          if (Array.isArray(data)) {
+            // Map data to include mock UI fields if missing
+            const enhancedData = data.map((p: any) => ({
+              ...p,
+              rating: p.rating || 4 + Math.random(),
+              category: p.category || "General",
+              tag: p.tag || (Math.random() > 0.7 ? "New" : null),
+            }));
+            setProducts(enhancedData);
+          } else {
+            console.error("Expected array of products, got:", data);
+            setProducts([]);
+          }
         }
       } catch (error) {
         console.error("Failed to fetch products:", error);
