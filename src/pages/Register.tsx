@@ -1,29 +1,31 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { UserPlus, Mail, Lock, User, ArrowRight } from 'lucide-react';
-import Button from '../components/Button';
+/** @format */
+
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { UserPlus, Mail, Lock, User, ArrowRight } from "lucide-react";
+import Button from "../components/Button";
 
 const Register = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
       });
       if (response.ok) {
-        navigate('/login');
+        navigate("/login");
       } else {
-        alert('Registration failed');
+        alert("Registration failed");
       }
     } catch (error) {
-      console.error('Registration error:', error);
+      console.error("Registration error:", error);
     }
   };
 
@@ -47,7 +49,7 @@ const Register = () => {
             Join the OrangeShop community today
           </p>
         </div>
-        
+
         <form className='mt-8 space-y-6' onSubmit={handleSubmit}>
           <div className='space-y-4'>
             <div className='relative'>
@@ -91,15 +93,19 @@ const Register = () => {
             </div>
           </div>
 
-          <Button type='submit' className='w-full py-4 text-lg shadow-lg shadow-orange-500/20'>
+          <Button
+            type='submit'
+            className='w-full py-4 text-lg shadow-lg shadow-orange-500/20'>
             Sign Up <ArrowRight className='ml-2 h-5 w-5' />
           </Button>
         </form>
-        
+
         <div className='text-center mt-6'>
           <p className='text-sm text-gray-600'>
-            Already have an account?{' '}
-            <Link to='/login' className='font-bold text-orange-600 hover:text-orange-500 transition-colors'>
+            Already have an account?{" "}
+            <Link
+              to='/login'
+              className='font-bold text-orange-600 hover:text-orange-500 transition-colors'>
               Sign in
             </Link>
           </p>

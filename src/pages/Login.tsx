@@ -24,7 +24,10 @@ const Login = () => {
         window.dispatchEvent(new Event("authUpdated"));
         navigate("/products");
       } else {
-        alert("Login failed");
+        const data = await response.json();
+        alert(
+          `Login failed: ${data.message} ${data.error ? `- ${data.error}` : ""}`
+        );
       }
     } catch (error) {
       console.error("Login error:", error);
