@@ -19,8 +19,23 @@ interface Product {
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [showCartToast, setShowCartToast] = useState(false);
+  const [username, setUsername] = useState<string>("Guest");
 
   useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch("/api/auth/user", {
+          credentials: "include",
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setUsername(data.username || data.name);
+        }
+      } catch (error) {
+        console.log("Failed to fetch user");
+      }
+    };
+
     const fetchProducts = async () => {
       try {
         const response = await fetch("/api/products", {
@@ -43,6 +58,7 @@ const Products = () => {
     };
 
     fetchProducts();
+    fetchUser();
   }, []);
 
   const addToCart = async (productId: number) => {
@@ -100,8 +116,8 @@ const Products = () => {
               </div>
             </div> */}
 
-            {/* Abstract Hero Image Composition */}
-            {/* <div className='relative hidden md:block'>
+      {/* Abstract Hero Image Composition */}
+      {/* <div className='relative hidden md:block'>
               <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-200 rounded-full filter blur-3xl opacity-30 animate-pulse'></div>
               <div className='relative z-10 grid grid-cols-2 gap-4'>
                 <img
@@ -122,6 +138,14 @@ const Products = () => {
 
       {/* Featured Products */}
       <section className='py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+        <div className='mb-8 p-6 bg-orange-50 rounded-2xl border border-orange-100'>
+          <h2 className='text-2xl font-bold text-gray-900'>
+            Welcome, <span className='text-orange-600'>{username}</span>!
+          </h2>
+          <p className='text-gray-600 mt-1'>
+            We have some great new items for you today.
+          </p>
+        </div>
         <div className='flex justify-between items-end mb-10'>
           <div>
             <h2 className='text-3xl font-bold text-gray-900 mb-2'>

@@ -117,10 +117,13 @@ const Navbar = () => {
                 </Button>
               </div>
             ) : (
-              <Link to='/login'>
+              <Link to='/login' className='flex items-center gap-1'>
                 <Button variant='ghost' className='!p-2 rounded-full'>
                   <User className='w-6 h-6' />
                 </Button>
+                <span className='text-sm font-medium text-gray-700 hidden sm:block'>
+                  Guest
+                </span>
               </Link>
             )}
           </div>
