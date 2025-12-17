@@ -29,8 +29,15 @@ const Cart = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        setCartItems(data.items);
-        setTotal(data.total);
+        // Backend now returns an array directly
+        const items = Array.isArray(data) ? data : data.items || [];
+        setCartItems(items);
+        
+        // Calculate total on frontend since backend doesn't return it yet
+        const calculatedTotal = items.reduce((sum: number, item: CartItem) => {
+          return sum + (Number(item.price) * item.quantity);
+        }, 0);
+        setTotal(calculatedTotal);
       }
     } catch (error) {
       console.error("Failed to fetch cart:", error);
