@@ -56,7 +56,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch("/api/auth/logout", { method: "POST" });
+      await fetch("/api/auth/logout", { method: "DELETE" });
       setUsername(null);
       navigate("/login");
     } catch (error) {

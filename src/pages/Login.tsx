@@ -25,9 +25,8 @@ const Login = () => {
         navigate("/products");
       } else {
         const data = await response.json();
-        alert(
-          `Login failed: ${data.message} ${data.error ? `- ${data.error}` : ""}`
-        );
+        console.log("Login failed response:", data); // Debug log
+        alert(`Login failed: ${JSON.stringify(data)}`); // Show full JSON
       }
     } catch (error) {
       console.error("Login error:", error);
