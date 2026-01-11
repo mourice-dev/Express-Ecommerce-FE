@@ -1,7 +1,7 @@
 /** @format */
 
 import { useEffect, useState } from "react";
-import { ShoppingCart, Star, Heart, ArrowRight } from "lucide-react";
+import { ShoppingCart, Star, Heart } from "lucide-react";
 import Button from "../components/Button";
 import Badge from "../components/Badge";
 import { API_BASE_URL } from "../config";
