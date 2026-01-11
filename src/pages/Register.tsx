@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { UserPlus, Mail, Lock, User, ArrowRight } from "lucide-react";
 import Button from "../components/Button";
+import { API_BASE_URL } from "../config";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -14,7 +15,7 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/auth/register", {
+      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),

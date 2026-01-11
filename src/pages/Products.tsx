@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ShoppingCart, Star, Heart, ArrowRight } from "lucide-react";
 import Button from "../components/Button";
 import Badge from "../components/Badge";
+import { API_BASE_URL } from "../config";
 
 interface Product {
   id: number;
@@ -24,7 +25,7 @@ const Products = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch("/api/auth/user", {
+        const response = await fetch(`${API_BASE_URL}/api/auth/user`, {
           credentials: "include",
         });
         if (response.ok) {
@@ -38,7 +39,7 @@ const Products = () => {
 
     const fetchProducts = async () => {
       try {
-        const response = await fetch("/api/products", {
+        const response = await fetch(`${API_BASE_URL}/api/products`, {
           credentials: "include",
         });
         if (response.ok) {
@@ -69,7 +70,7 @@ const Products = () => {
 
   const addToCart = async (productId: number) => {
     try {
-      const response = await fetch("/api/cart/add", {
+      const response = await fetch(`${API_BASE_URL}/api/cart/add`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ productId, quantity: 1 }),

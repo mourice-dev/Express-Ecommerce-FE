@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Trash2, ShoppingBag, ArrowRight } from "lucide-react";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 
 interface CartItem {
   id: number;
@@ -24,7 +25,7 @@ const Cart = () => {
 
   const fetchCart = async () => {
     try {
-      const response = await fetch("/api/cart", {
+      const response = await fetch(`${API_BASE_URL}/api/cart`, {
         credentials: "include",
       });
       if (response.ok) {
@@ -32,10 +33,10 @@ const Cart = () => {
         // Backend now returns an array directly
         const items = Array.isArray(data) ? data : data.items || [];
         setCartItems(items);
-        
+
         // Calculate total on frontend since backend doesn't return it yet
         const calculatedTotal = items.reduce((sum: number, item: CartItem) => {
-          return sum + (Number(item.price) * item.quantity);
+          return sum + Number(item.price) * item.quantity;
         }, 0);
         setTotal(calculatedTotal);
       }
@@ -46,7 +47,7 @@ const Cart = () => {
 
   const removeFromCart = async (itemId: number) => {
     try {
-      const response = await fetch(`/api/cart/${itemId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/cart/${itemId}`, {
         method: "DELETE",
         credentials: "include",
       });

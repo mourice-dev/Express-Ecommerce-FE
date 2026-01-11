@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart, Search, User, Menu, X, LogOut } from "lucide-react";
 import Button from "./Button";
+import { API_BASE_URL } from "../config";
 
 const Navbar = () => {
   const [cartCount, setCartCount] = useState(0);
@@ -14,7 +15,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch("/api/auth/user", {
+        const response = await fetch(`${API_BASE_URL}/api/auth/user`, {
           credentials: "include",
         });
         if (response.ok) {
@@ -30,7 +31,7 @@ const Navbar = () => {
 
     const fetchCartCount = async () => {
       try {
-        const response = await fetch("/api/cart/cart-count", {
+        const response = await fetch(`${API_BASE_URL}/api/cart/cart-count`, {
           credentials: "include",
         });
         if (response.ok) {
@@ -56,7 +57,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch("/api/auth/logout", { method: "DELETE" });
+      await fetch(`${API_BASE_URL}/api/auth/logout`, { method: "DELETE" });
       setUsername(null);
       navigate("/login");
     } catch (error) {
