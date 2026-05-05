@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Trash2, ShoppingBag, ArrowRight } from "lucide-react";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
+import Loading from "../components/Loading";
 import { API_BASE_URL } from "../config";
 
 interface CartItem {
@@ -15,15 +16,18 @@ interface CartItem {
   image: string;
 }
 
+
 const Cart = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [total, setTotal] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchCart();
   }, []);
 
   const fetchCart = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(`${API_BASE_URL}/api/cart`, {
         credentials: "include",
@@ -42,6 +46,8 @@ const Cart = () => {
       }
     } catch (error) {
       console.error("Failed to fetch cart:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -71,7 +77,9 @@ const Cart = () => {
           Your Shopping Cart
         </h2>
 
-        {cartItems.length === 0 ? (
+        {isLoading ? (
+          <Loading message='Fetching your cart...' />
+        ) : cartItems.length === 0 ? (
           <div className='text-center py-20 bg-white rounded-3xl shadow-sm border border-gray-100'>
             <div className='w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6'>
               <ShoppingBag className='w-10 h-10 text-orange-500' />

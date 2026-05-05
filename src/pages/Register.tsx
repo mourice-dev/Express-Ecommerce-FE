@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { UserPlus, Mail, Lock, User, ArrowRight } from "lucide-react";
 import Button from "../components/Button";
+import Loading from "../components/Loading";
 import { API_BASE_URL } from "../config";
 
 const Register = () => {
@@ -105,7 +106,7 @@ const Register = () => {
             type='submit'
             disabled={loading}
             className='w-full py-4 text-lg shadow-lg shadow-orange-500/20 disabled:opacity-50 disabled:cursor-not-allowed'>
-            {loading ? "Signing up..." : "Sign Up"} {!loading && <ArrowRight className='ml-2 h-5 w-5' />}
+            {loading ? <Loading type="dots" className="py-0" /> : "Sign Up"} {!loading && <ArrowRight className='ml-2 h-5 w-5' />}
           </Button>
         </form>
 
