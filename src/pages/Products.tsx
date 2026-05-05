@@ -95,7 +95,7 @@ const Products = () => {
   return (
     <div className='min-h-screen bg-gray-50'>
       {/* Hero Section */}
-      {/* <section className='relative bg-white overflow-hidden'>
+      <section className='relative bg-white overflow-hidden'>
         <div className='absolute inset-0 bg-orange-50/50'></div>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-12 pb-16 md:pt-20 md:pb-24'>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-12 items-center'>
@@ -115,16 +115,16 @@ const Products = () => {
               </p>
               <div className='flex flex-col sm:flex-row gap-4'>
                 <Button className='!px-8 !py-4 text-lg'>
-                  Shop Now <ArrowRight className='w-5 h-5' />
+                  Shop Now 
                 </Button>
                 <Button variant='secondary' className='!px-8 !py-4 text-lg'>
                   View Collections
                 </Button>
               </div>
-            </div> */}
+            </div>
 
-      {/* Abstract Hero Image Composition */}
-      {/* <div className='relative hidden md:block'>
+            {/* Abstract Hero Image Composition */}
+            <div className='relative hidden md:block'>
               <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-200 rounded-full filter blur-3xl opacity-30 animate-pulse'></div>
               <div className='relative z-10 grid grid-cols-2 gap-4'>
                 <img
@@ -141,7 +141,7 @@ const Products = () => {
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* Featured Products */}
       <section className='py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
