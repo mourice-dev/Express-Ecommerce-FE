@@ -69,7 +69,8 @@ const Products = () => {
         // Or just reload to update navbar count as per previous implementation, but toast is nicer
         // window.location.reload();
       } else {
-        alert("Failed to add to cart");
+        const data = await response.json().catch(() => ({}));
+        alert(data.message || data.error || "Failed to add to cart");
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
