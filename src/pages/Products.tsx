@@ -94,71 +94,14 @@ const Products = () => {
 
   return (
     <div className='min-h-screen bg-gray-50'>
-      {/* Hero Section */}
-      <section className='relative bg-white overflow-hidden'>
-        <div className='absolute inset-0 bg-orange-50/50'></div>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-12 pb-16 md:pt-20 md:pb-24'>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-12 items-center'>
-            <div className='space-y-8 z-10'>
-              <Badge className='bg-orange-100 text-orange-600 px-4 py-2 text-sm'>
-                New Season Arrivals
-              </Badge>
-              <h1 className='text-5xl md:text-7xl font-black text-gray-900 leading-tight'>
-                Fresh Styles <br />
-                <span className='text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-400'>
-                  Every Day
-                </span>
-              </h1>
-              <p className='text-lg text-gray-600 max-w-lg leading-relaxed'>
-                Discover the latest trends in fashion and technology. Curated
-                collections designed to make you stand out.
-              </p>
-              <div className='flex flex-col sm:flex-row gap-4'>
-                <Button className='!px-8 !py-4 text-lg'>
-                  Shop Now 
-                </Button>
-                <Button variant='secondary' className='!px-8 !py-4 text-lg'>
-                  View Collections
-                </Button>
-              </div>
-            </div>
-
-            {/* Abstract Hero Image Composition */}
-            <div className='relative hidden md:block'>
-              <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-200 rounded-full filter blur-3xl opacity-30 animate-pulse'></div>
-              <div className='relative z-10 grid grid-cols-2 gap-4'>
-                <img
-                  src='https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=500&q=80'
-                  className='rounded-2xl shadow-2xl transform translate-y-12 hover:-translate-y-2 transition-transform duration-500 object-cover h-64 w-full'
-                  alt='Fashion'
-                />
-                <img
-                  src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80'
-                  className='rounded-2xl shadow-2xl transform -translate-y-8 hover:translate-y-2 transition-transform duration-500 object-cover h-64 w-full'
-                  alt='Shoes'
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Products */}
-      <section className='py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-        <div className='mb-8 p-6 bg-orange-50 rounded-2xl border border-orange-100'>
-          <h2 className='text-2xl font-bold text-gray-900'>
-            Welcome, <span className='text-orange-600'>{username}</span>!
-          </h2>
-          <p className='text-gray-600 mt-1'>
-            We have some great new items for you today.
-          </p>
-        </div>
-        <div className='flex justify-between items-end mb-10'>
+      {/* All Products */}
+      <section className='py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+        <div className='flex justify-between items-end mb-8'>
           <div>
             <h2 className='text-3xl font-bold text-gray-900 mb-2'>
-              Featured Products
+              All Products
             </h2>
-            <p className='text-gray-500'>Handpicked selections just for you</p>
+            <p className='text-gray-500'>Browse our complete collection</p>
           </div>
         </div>
 
@@ -231,29 +174,7 @@ const Products = () => {
         </div>
       </section>
 
-      {/* Newsletter / CTA Section */}
-      <section className='bg-orange-500 py-20 relative overflow-hidden'>
-        <div className='absolute inset-0 opacity-10 pattern-dots'></div>
-        <div className='max-w-4xl mx-auto px-4 text-center relative z-10'>
-          <h2 className='text-4xl font-bold text-white mb-6'>
-            Join the Orange Club
-          </h2>
-          <p className='text-orange-100 text-lg mb-8 max-w-2xl mx-auto'>
-            Get 20% off your first order when you subscribe to our newsletter.
-            No spam, just fresh deals.
-          </p>
-          <div className='flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto'>
-            <input
-              type='email'
-              placeholder='Enter your email'
-              className='px-6 py-4 rounded-xl text-gray-900 focus:outline-none focus:ring-4 focus:ring-orange-600/30 w-full shadow-lg'
-            />
-            <button className='px-8 py-4 bg-gray-900 text-white font-bold rounded-xl hover:bg-gray-800 transition-colors shadow-lg whitespace-nowrap cursor-pointer'>
-              Subscribe Now
-            </button>
-          </div>
-        </div>
-      </section>
+
 
       {/* Cart Toast Notification */}
       <div
