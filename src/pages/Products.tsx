@@ -20,9 +20,11 @@ interface Product {
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [showCartToast, setShowCartToast] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setIsLoading(true);
       try {
         const response = await fetch(`${API_BASE_URL}/api/products`, {
           credentials: "include",
@@ -46,6 +48,8 @@ const Products = () => {
         }
       } catch (error) {
         console.error("Failed to fetch products:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -90,73 +94,94 @@ const Products = () => {
           </div>
         </div>
 
-        <div className='grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-4'>
-          {products.map((product) => (
-            <div
-              key={product.id}
-              className='group bg-white rounded-lg border border-gray-100 hover:border-orange-200 hover:shadow-md hover:shadow-orange-500/10 transition-all duration-300 flex flex-col overflow-hidden relative'>
-              {product.tag && (
-                <div className='absolute top-1.5 left-1.5 z-10'>
-                  <Badge className='text-[10px] px-1.5 py-0.5 h-5'>
-                    {product.tag}
-                  </Badge>
-                </div>
-              )}
-              <button className='absolute top-1.5 right-1.5 z-10 p-1 bg-white/80 backdrop-blur rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-orange-50 text-gray-400 hover:text-red-500 cursor-pointer'>
-                <Heart className='w-3.5 h-3.5' />
-              </button>
-
-              <div className='relative aspect-square overflow-hidden bg-gray-50'>
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'
-                />
-              </div>
-
-              <div className='p-3 flex flex-col flex-1'>
-                <div className='flex justify-between items-start mb-1'>
-                  <div>
-                    <p className='text-[9px] text-orange-500 font-medium uppercase tracking-wider mb-0.5'>
-                      {product.category}
-                    </p>
-                    <h3 className='font-bold text-gray-800 text-xs leading-tight group-hover:text-orange-600 transition-colors line-clamp-2'>
-                      {product.title}
-                    </h3>
+        {isLoading ? (
+          <div className='grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-4'>
+            {[...Array(10)].map((_, i) => (
+              <div
+                key={i}
+                className='bg-white rounded-lg border border-gray-100 flex flex-col overflow-hidden relative animate-pulse'>
+                <div className='bg-gray-200 aspect-square w-full'></div>
+                <div className='p-3 flex flex-col flex-1 gap-2 mt-1'>
+                  <div className='h-2 bg-gray-200 rounded w-1/3'></div>
+                  <div className='h-3 bg-gray-200 rounded w-3/4'></div>
+                  <div className='h-3 bg-gray-200 rounded w-1/2'></div>
+                  <div className='mt-auto flex justify-between items-center pt-2'>
+                    <div className='h-4 bg-gray-200 rounded w-1/4'></div>
+                    <div className='h-7 w-7 bg-gray-200 rounded-full'></div>
                   </div>
                 </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className='grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-4'>
+            {products.map((product) => (
+              <div
+                key={product.id}
+                className='group bg-white rounded-lg border border-gray-100 hover:border-orange-200 hover:shadow-md hover:shadow-orange-500/10 transition-all duration-300 flex flex-col overflow-hidden relative'>
+                {product.tag && (
+                  <div className='absolute top-1.5 left-1.5 z-10'>
+                    <Badge className='text-[10px] px-1.5 py-0.5 h-5'>
+                      {product.tag}
+                    </Badge>
+                  </div>
+                )}
+                <button className='absolute top-1.5 right-1.5 z-10 p-1 bg-white/80 backdrop-blur rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-orange-50 text-gray-400 hover:text-red-500 cursor-pointer'>
+                  <Heart className='w-3.5 h-3.5' />
+                </button>
 
-                <div className='flex items-center gap-0.5 mb-2'>
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`w-2.5 h-2.5 ${
-                        i < Math.floor(product.rating || 0)
-                          ? "fill-orange-400 text-orange-400"
-                          : "text-gray-300"
-                      }`}
-                    />
-                  ))}
-                  <span className='text-[9px] text-gray-500 ml-1'>
-                    ({product.rating?.toFixed(1)})
-                  </span>
+                <div className='relative aspect-square overflow-hidden bg-gray-50'>
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'
+                  />
                 </div>
 
-                <div className='mt-auto flex items-center justify-between'>
-                  <span className='text-sm font-bold text-gray-900'>
-                    ${Number(product.price).toFixed(2)}
-                  </span>
-                  <Button
-                    variant='outline'
-                    className='!px-0 !py-0 !rounded-full group/btn h-7 w-7 flex items-center justify-center'
-                    onClick={() => addToCart(product.id)}>
-                    <ShoppingCart className='w-3 h-3 group-hover/btn:fill-orange-500' />
-                  </Button>
+                <div className='p-3 flex flex-col flex-1'>
+                  <div className='flex justify-between items-start mb-1'>
+                    <div>
+                      <p className='text-[9px] text-orange-500 font-medium uppercase tracking-wider mb-0.5'>
+                        {product.category}
+                      </p>
+                      <h3 className='font-bold text-gray-800 text-xs leading-tight group-hover:text-orange-600 transition-colors line-clamp-2'>
+                        {product.title}
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div className='flex items-center gap-0.5 mb-2'>
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-2.5 h-2.5 ${
+                          i < Math.floor(product.rating || 0)
+                            ? "fill-orange-400 text-orange-400"
+                            : "text-gray-300"
+                        }`}
+                      />
+                    ))}
+                    <span className='text-[9px] text-gray-500 ml-1'>
+                      ({product.rating?.toFixed(1)})
+                    </span>
+                  </div>
+
+                  <div className='mt-auto flex items-center justify-between'>
+                    <span className='text-sm font-bold text-gray-900'>
+                      ${Number(product.price).toFixed(2)}
+                    </span>
+                    <Button
+                      variant='outline'
+                      className='!px-0 !py-0 !rounded-full group/btn h-7 w-7 flex items-center justify-center'
+                      onClick={() => addToCart(product.id)}>
+                      <ShoppingCart className='w-3 h-3 group-hover/btn:fill-orange-500' />
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
 
 
