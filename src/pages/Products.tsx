@@ -20,23 +20,8 @@ interface Product {
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [showCartToast, setShowCartToast] = useState(false);
-  const [username, setUsername] = useState<string>("Guest");
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/user`, {
-          credentials: "include",
-        });
-        if (response.ok) {
-          const data = await response.json();
-          setUsername(data.username || data.name);
-        }
-      } catch (error) {
-        console.log("Failed to fetch user");
-      }
-    };
-
     const fetchProducts = async () => {
       try {
         const response = await fetch(`${API_BASE_URL}/api/products`, {
@@ -65,7 +50,6 @@ const Products = () => {
     };
 
     fetchProducts();
-    fetchUser();
   }, []);
 
   const addToCart = async (productId: number) => {
