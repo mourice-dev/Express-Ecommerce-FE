@@ -10,10 +10,12 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: "POST",
@@ -24,10 +26,14 @@ const Register = () => {
       if (response.ok) {
         navigate("/login");
       } else {
-        alert("Registration failed");
+        const data = await response.json().catch(() => ({}));
+        alert(data.message || data.error || "Registration failed");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Registration error:", error);
+      alert(error.message || "Network error. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -97,8 +103,9 @@ const Register = () => {
 
           <Button
             type='submit'
-            className='w-full py-4 text-lg shadow-lg shadow-orange-500/20'>
-            Sign Up <ArrowRight className='ml-2 h-5 w-5' />
+            disabled={loading}
+            className='w-full py-4 text-lg shadow-lg shadow-orange-500/20 disabled:opacity-50 disabled:cursor-not-allowed'>
+            {loading ? "Signing up..." : "Sign Up"} {!loading && <ArrowRight className='ml-2 h-5 w-5' />}
           </Button>
         </form>
 

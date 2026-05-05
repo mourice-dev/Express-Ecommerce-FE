@@ -29,8 +29,9 @@ const Login = () => {
         console.log("Login failed response:", data); // Debug log
         alert(`Login failed: ${JSON.stringify(data)}`); // Show full JSON
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Login error:", error);
+      alert(error.message || "Network error. Please try again later.");
     } finally {
       setIsLoading(false);
     }
