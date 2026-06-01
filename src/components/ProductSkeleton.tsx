@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 
 const ProductSkeleton = () => {
   return (

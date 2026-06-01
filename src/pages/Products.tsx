@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { ShoppingCart, Star, Heart } from "lucide-react";
 import Button from "../components/Button";
 import Badge from "../components/Badge";
-import Loading from "../components/Loading";
 import ProductSkeleton from "../components/ProductSkeleton";
 import { API_BASE_URL } from "../config";
 
